@@ -42,6 +42,8 @@ mv * ~/.config
 ```
 
 ## Notes
-Picom config is nothing other than what comes out of the box 🙃.
+Picom config is nothing other than what comes out of the box when you install picom 🙃.
+
+
 And I have not included my Neovim config because it is just gruvbox themed
 [AstroNvim](https://github.com/AstroNvim/AstroNvim).
