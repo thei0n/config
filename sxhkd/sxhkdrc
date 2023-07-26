@@ -69,7 +69,7 @@ super + shift + {h,j,k,l}
     bspc node -v {-20 0,0 20,0 -20,20 0}
 #Kill the focused window
 alt + shift + q
-    bspc node -k
+    bspc node -c
 
 # Focus next floating window
 alt + space 
