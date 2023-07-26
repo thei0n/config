@@ -37,5 +37,7 @@ mv * ~/.config
 ```
 
 ## Notes
-Picom config is nothing other than what comes out of the box when you install picom.
+Picom config is nothing other than what comes out of the box when you install picom 🙃.
+
+
 And what you see on the screenshot is gruvbox themed [AstroNvim](https://github.com/AstroNvim/AstroNvim).
