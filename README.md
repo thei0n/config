@@ -41,3 +41,6 @@ mv * ~/.config
 
 ```
 
+## Notes
+Picom config is nothing other than what comes out of the box when you install picom 🙃 .
+
