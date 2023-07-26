@@ -21,10 +21,11 @@ It is always a good idea to make a backup of your current config.
 `git clone https://github.com/thei0n/config`
 
 2. Change direcotry to this repo. 
-
 `cd config`
+
 3. Move the zshrc file .zshrc.  
 `mv zsh/zshrc ~/.zshrc`
+
 4. Move all the directories to your .config directory. 
 `mv * ~/.config/`
 
