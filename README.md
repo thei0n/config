@@ -1,15 +1,15 @@
 # Theion's dot files.
 
-## Gruvbox themed Bspwm config for:
+<!-- ## Gruvbox themed Bspwm config for: -->
 
-* Bspwm
-* Sxhkd
-* Kitty
-* Alacritty
-* Picom
-* Polybar
-* Zsh
-* Additional HQ gruvbox wallpapers
+<!-- * Bspwm -->
+<!-- * Sxhkd -->
+<!-- * Kitty -->
+<!-- * Alacritty -->
+<!-- * Picom -->
+<!-- * Polybar -->
+<!-- * Zsh -->
+<!-- * Additional HQ gruvbox wallpapers -->
 
 <!-- Image -->
 ## Screenshots
