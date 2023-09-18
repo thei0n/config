@@ -20,7 +20,7 @@ alt + shift + p
     ~/.config/polybar/launch.sh
 #Open gruvbox themed dmenu
 alt + d
-    dmenu_run -i -nb '#282828' -nf '#ebdbb2' -sb '#ebdbb2' -sf '#1f222d' -fn 'OperatorMonoBook:bold:pixelsize=13'
+    dmenu_run -i -nb '#282828' -nf '#ebdbb2' -sb '#ebdbb2' -sf '#1f222d' -fn 'OperatorMonoBook:bold:pixelsize=14'
 #Volume buttons
 XF86AudioRaiseVolume 
     pactl set-sink-volume @DEFAULT_SINK@ +10%
@@ -59,10 +59,11 @@ alt + shift + 0
 alt + f
     bspc node -t fullscreen
 #Toggle titled mode
-alt + t
+alt + a
     bspc node -t tiled
 #Toggle floating mode
-alt + shift + space   
+#alt + shift + space   
+alt+s
     bspc node -t floating
 #Move windowns in floating mode
 super + shift + {h,j,k,l}
@@ -85,5 +86,7 @@ alt + shift + {h,j,k,l}
     bspc node -s {west,south,north,east}
         
 
+alt + r
+	bspc node @/ -R 90
 
 

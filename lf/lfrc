@@ -1,0 +1,9 @@
+map g top
+map E extract
+map C copyto
+map M moveto
+map D delete
+map W :rename
+map H :mkdir<space>
+map T :touch 
+

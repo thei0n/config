@@ -51,7 +51,16 @@ font:
   normal:
     family: JetBrainsMono Nerd Font
     #family: monospace
-    style: Regular
+    #family: OperatorMono Nerd Font
+    #family: Noto Nerd Font
+    #family: Dejavu Sans Mono
+    #family: Avage Nerd Font
+  #family: Liberation Mono Nerd Font
+  #family: Source Code Pro
+  #family: DejaVu Serif
+  #family: 
+  #style: Book
+
 
   bold:
     family: JetBrainsMono Nerd Font
