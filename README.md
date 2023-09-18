@@ -43,6 +43,6 @@ mv * ~/.config
 
 ## Notes
 
-In order for nvim to work packer must be installed.
+In order for nvim to work properly packer must be installed.
 
 
