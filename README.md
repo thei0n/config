@@ -42,8 +42,7 @@ mv * ~/.config
 ```
 
 ## Notes
-Picom config is nothing other than what comes out of the box when you install picom 🙃.
+
+In order for nvim to work packer must be installed.
 
 
-And I have not included my Neovim config because it is just gruvbox themed
-[AstroNvim](https://github.com/AstroNvim/AstroNvim).
