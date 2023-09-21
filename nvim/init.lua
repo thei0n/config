@@ -1,69 +1,88 @@
+vim.cmd(':set number')
+
+vim.cmd('set rtp+=/usr/bin')
+
+vim.cmd("packadd packer.nvim")
+
+vim.cmd("packadd packer.nvim")
+
 require('packer').startup(function(use)
-  use 'wbthomason/packer.nvim'
-  use 'ellisonleao/gruvbox.nvim'
-  use 'nvim-tree/nvim-tree.lua'
-  use 'nvim-treesitter/nvim-treesitter'
-  use 'hrsh7th/nvim-cmp'
-  use'hrsh7th/cmp-nvim-lsp'
-  use{
-	  "williamboman/mason.nvim",
-	  "williamboman/mason-lspconfig.nvim",
-	  "neovim/nvim-lspconfig",
+	-- Packer can manage itself
+	use { "ellisonleao/gruvbox.nvim", as="gruvbox" }
+	use {'wbthomason/packer.nvim'}
 
-  }
-  use 'voldikss/vim-floaterm'
+	use {
+		'VonHeikemen/lsp-zero.nvim',
+		branch = 'v2.x',
+		requires = {
+			-- LSP Support
+			{'neovim/nvim-lspconfig'},             -- Required
+			{'williamboman/mason.nvim'},           -- Optional
+			{'williamboman/mason-lspconfig.nvim'}, -- Optional
+
+			-- Autocompletion
+			{'hrsh7th/nvim-cmp'},     -- Required
+			{'hrsh7th/cmp-nvim-lsp'}, -- Required
+			{'L3MON4D3/LuaSnip'},     -- Required
+		}
+	}
+
+	use ('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate'})
+
+	use {
+		"williamboman/mason.nvim",
+		"williamboman/mason-lspconfig.nvim",
+		"neovim/nvim-lspconfig",
+	}
+
+	use 'voldikss/vim-floaterm'
+
+	use {
+		"windwp/nvim-autopairs",
+		config = function() require("nvim-autopairs").setup {} end
+	}
+
 end)
---set commands
-vim.cmd([[set number]])
---disable autocomment
-vim.cmd([[autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o]])
 
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-vim.opt.laststatus=0
+require("mason").setup()
+require("mason-lspconfig").setup({
+	ensure_installed = {"clangd", "lua_ls"},
+})
 
 
---packages
---use { "ellisonleao/gruvbox.nvim" }
 
--- keybinds
-vim.keymap.set('n','<leader><leader>',':w!<CR>')
-vim.keymap.set('n','<leader>q',':q!<CR>')
-vim.keymap.set('n','<leader>f',':FloatermToggle<CR>')
+require("lsp.mason")
+local lsp = require('lsp-zero')
+
+lsp.preset("recommended")
+local cmp = require("cmp")
+
+local cmp_select = {behavior = cmp.SelectBehavior.Select}
+
+local cmp_mappings = lsp.defaults.cmp_mappings({
+	["<A-f>"] = cmp.mapping.select_next_item(cmp_select), ["<A-d>"] = cmp.mapping.select_prev_item(cmp_select),
+	["<Tab>"] = cmp.mapping.confirm({ select = false }),
+})
+
+lsp.setup_nvim_cmp({
+	mapping = cmp_mappings
+})
+
+lsp.on_attach(function(client, bufnr)
+  -- see :help lsp-zero-keybindings
+  -- to learn the available actions
+end)
 
 
---package config
-vim.o.background = "dark" -- or "light" for light mode
-vim.cmd([[colorscheme gruvbox]])
-vim.keymap.set('n','<leader>e', ':NvimTreeFindFileToggle<CR>')
--- disable netrw at the very start of your init.lua
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
 
--- set termguicolors to enable highlight groups
-vim.opt.termguicolors = true
+-- (Optional) Configure lua language server for neovim
+-- require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 
--- empty setup using defaults
-require("nvim-tree").setup()
+lsp.setup()
 
--- OR setup with some options
---require("nvim-tree").setup({
---  sort_by = "case_sensitire",
---  view = {
---    width = 30,
---  },
---  renderer = {
---    group_empty = true,
---  },
---  filters = {
---    dotfiles = true,
---  },
---})
-
--- treesitter
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the five listed parsers should always be installed)
-  ensure_installed = { "c", "lua", "vim", "html", "bash", "python" },
+  ensure_installed = { "python", "c", "bash", "rust", "go"},
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -73,36 +92,23 @@ require'nvim-treesitter.configs'.setup {
   auto_install = true,
 
   -- List of parsers to ignore installing (for "all")
-  ignore_install = { "javascript" },
+  ignore_install = { "javascript", "vim", "lua", "csharp", "cpp" },
 
-  ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-  -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
-
-  highlight = {
+   highlight = {
     enable = true,
-
-    -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
-    -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
-    -- the name of the parser)
-    -- list of language that will be disabled
-    disable = { "c", "rust" },
-    -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
-    disable = function(lang, buf)
-        local max_filesize = 100 * 1024 -- 100 KB
-        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-        if ok and stats and stats.size > max_filesize then
-            return true
-        end
-    end,
 
     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
     -- Using this option may slow down your editor, and you may see some duplicate highlights.
     -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = false,
-  },
-}
+  }, } --local default_scheme = "tokyonight-night"
+
+vim.o.termguicolors = true
+
+vim.cmd.colorscheme(default_scheme)
 
 vim.o.background = "dark" -- or "light" for light mode
 vim.cmd([[colorscheme gruvbox]])
+
 
