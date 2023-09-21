@@ -36,6 +36,7 @@ require('packer').startup(function(use)
 
 end)
 
+
 --[[Vim settings]]
 vim.cmd("packadd packer.nvim")
 
@@ -48,6 +49,10 @@ vim.cmd([[set scrolloff=5]]) --Smooth scroll
 vim.o.background = "dark" -- or "light" for light mode
 	
 vim.cmd([[colorscheme gruvbox]]) --Color Scheme
+
+--vim.cmd([[set formatoptions-=cro]]) --deactivating autocomment (alternative)
+
+vim.cmd([[autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o]])
 
 --I have no idea what these are 
 --They were in my old nvim config so put them here, just in case they do something important
@@ -65,7 +70,6 @@ vim.keymap.set('n','<leader><leader>',':w!<CR>')
 vim.keymap.set('n','<leader>q',':wqa!<CR>')
 vim.keymap.set('n','<leader>f',':FloatermToggle<CR>')
 vim.keymap.set('n','<leader>e', ':NvimTreeFindFileToggle<CR>')
-vim.cmd([[autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o]])
 
 --[[ LSP ]]  
 require("mason").setup() 
@@ -82,8 +86,9 @@ local cmp = require("cmp")
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
 
 local cmp_mappings = lsp.defaults.cmp_mappings({
-	["<A-f>"] = cmp.mapping.select_next_item(cmp_select), ["<A-d>"] = cmp.mapping.select_prev_item(cmp_select),
-	["<Tab>"] = cmp.mapping.confirm({ select = false }),
+	["<Tab>"] = cmp.mapping.select_next_item(cmp_select), 
+	["<Shift-Tab>"] = cmp.mapping.select_prev_item(cmp_select),
+	["<Return>"] = cmp.mapping.confirm({ select = false }),
 })
 
 lsp.setup_nvim_cmp({
@@ -123,3 +128,4 @@ require'nvim-treesitter.configs'.setup {
     -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = false,
   }, } 
+
