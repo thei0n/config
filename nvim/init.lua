@@ -1,16 +1,12 @@
-vim.cmd(':set number')
+--Theion's nvim config, if you don't like it you are wrong!
 
-vim.cmd('set rtp+=/usr/bin')
 
-vim.cmd("packadd packer.nvim")
-
-vim.cmd("packadd packer.nvim")
-
+--[[Packages]]
 require('packer').startup(function(use)
-	-- Packer can manage itself
 	use { "ellisonleao/gruvbox.nvim", as="gruvbox" }
 	use {'wbthomason/packer.nvim'}
-
+	use ('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate'})
+	use 'voldikss/vim-floaterm'
 	use {
 		'VonHeikemen/lsp-zero.nvim',
 		branch = 'v2.x',
@@ -27,15 +23,11 @@ require('packer').startup(function(use)
 		}
 	}
 
-	use ('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate'})
-
 	use {
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
 		"neovim/nvim-lspconfig",
 	}
-
-	use 'voldikss/vim-floaterm'
 
 	use {
 		"windwp/nvim-autopairs",
@@ -44,12 +36,42 @@ require('packer').startup(function(use)
 
 end)
 
-require("mason").setup()
+--[[Vim settings]]
+vim.cmd("packadd packer.nvim")
+
+vim.cmd("set clipboard+=unnamedplus") --Use System Clipboard
+
+vim.cmd([[set number]]) 
+
+vim.cmd([[set scrolloff=5]]) --Smooth scroll
+
+vim.o.background = "dark" -- or "light" for light mode
+	
+vim.cmd([[colorscheme gruvbox]]) --Color Scheme
+
+--I have no idea what these are 
+--They were in my old nvim config so put them here, just in case they do something important
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.opt.laststatus=0
+--vim.cmd([[LspStop]]) 
+
+--[[Mappings]]
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+vim.opt.laststatus=0
+
+vim.keymap.set('n','<leader><leader>',':w!<CR>')
+vim.keymap.set('n','<leader>q',':wqa!<CR>')
+vim.keymap.set('n','<leader>f',':FloatermToggle<CR>')
+vim.keymap.set('n','<leader>e', ':NvimTreeFindFileToggle<CR>')
+vim.cmd([[autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o]])
+
+--[[ LSP ]]  
+require("mason").setup() 
 require("mason-lspconfig").setup({
-	ensure_installed = {"clangd", "lua_ls"},
+	ensure_installed = {"clangd"},
 })
-
-
 
 require("lsp.mason")
 local lsp = require('lsp-zero')
@@ -72,8 +94,6 @@ lsp.on_attach(function(client, bufnr)
   -- see :help lsp-zero-keybindings
   -- to learn the available actions
 end)
-
-
 
 -- (Optional) Configure lua language server for neovim
 -- require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
@@ -102,13 +122,4 @@ require'nvim-treesitter.configs'.setup {
     -- Using this option may slow down your editor, and you may see some duplicate highlights.
     -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = false,
-  }, } --local default_scheme = "tokyonight-night"
-
-vim.o.termguicolors = true
-
-vim.cmd.colorscheme(default_scheme)
-
-vim.o.background = "dark" -- or "light" for light mode
-vim.cmd([[colorscheme gruvbox]])
-
-
+  }, } 
