@@ -1,15 +1,17 @@
 # Theion's dot files.
 
-## Dependencies
-
-* Bspwm -->
-* Sxhkd -->
-* Kitty -->
-* Alacritty -->
-* Picom -->
-* Polybar -->
-* Zsh -->
-* Additional HQ gruvbox wallpapers -->
+## Dependencies (Arch linux packages )
+### Bspwm 
+* xorg-xgamma
+* xorg-xset
+### Sxhkd 
+### Kitty 
+### Alacritty 
+* ttf-jetbrains-mono-nerd
+### Picom 
+### Polybar 
+* ttf-roboto
+### Zsh 
 
 <!-- Image -->
 ## Screenshots
