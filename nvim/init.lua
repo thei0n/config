@@ -97,7 +97,6 @@ lsp.setup_nvim_cmp({
 
 lsp.on_attach(function(client, bufnr)
   -- see :help lsp-zero-keybindings
-  -- to learn the available actions
 end)
 
 -- (Optional) Configure lua language server for neovim
