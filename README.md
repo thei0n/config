@@ -46,6 +46,5 @@ mv * ~/.config
 ## Notes
 
 * In order for nvim to work properly packer must be installed.
-* For some reason there must be nvim/lua/{init.lua,mason.lua} files for lsp to work properly, but I have no idea why
 
 
